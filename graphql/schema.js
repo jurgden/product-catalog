@@ -10,7 +10,7 @@ const typeDefs = gql`
     pricePerOz: Float!
     pricePerPlant: Float!
     color: String!
-    // Add more fields as needed
+    # Add more fields as needed
   }
 
   type Query {
