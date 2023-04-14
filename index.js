@@ -1,13 +1,6 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 
-// Define the GraphQL resolvers
-const resolvers = {
-  Query: {
-    products: () => products,
-  },
-};
-
 const startServer = async () => {
   // Create the Apollo server
   const server = new ApolloServer({ typeDefs, resolvers });
