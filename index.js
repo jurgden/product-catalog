@@ -1,22 +1,5 @@
 const express = require("express");
-const { ApolloServer, gql } = require("apollo-server-express");
-
-// Define the GraphQL schema
-const typeDefs = gql`
-  type Product {
-    id: ID!
-    name: String!
-    description: String!
-    pricePerOz: Float!
-    pricePerPlant: Float!
-    color: String!
-    // Add more fields as needed
-  }
-
-  type Query {
-    products: [Product]!
-  }
-`;
+const { ApolloServer } = require("apollo-server-express");
 
 // Define the GraphQL resolvers
 const resolvers = {
