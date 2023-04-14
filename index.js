@@ -3,8 +3,14 @@ const { ApolloServer, gql } = require("apollo-server-express");
 
 // Define the GraphQL schema
 const typeDefs = gql`
+  type Product {
+    id: ID!
+    name: String!
+    description: String!
+  }
+
   type Query {
-    hello: String
+    products: [Product]!
   }
 `;
 
@@ -15,17 +21,26 @@ const resolvers = {
   },
 };
 
-// Create the Apollo server
-const server = new ApolloServer({ typeDefs, resolvers });
+const startServer = async () => {
+  // Create the Apollo server
+  const server = new ApolloServer({ typeDefs, resolvers });
 
-// Initialize Express
-const app = express();
+  // Initialize Express
+  const app = express();
 
-// Apply the Apollo middleware to Express
-server.applyMiddleware({ app });
+  // Start the Apollo server
+  await server.start();
 
-// Set the port and start the server
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-  console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`);
-});
+  // Apply the Apollo middleware to Express
+  server.applyMiddleware({ app });
+
+  // Set the port and start the server
+  const port = process.env.PORT || 4000;
+  app.listen(port, () => {
+    console.log(
+      `Server ready at http://localhost:${port}${server.graphqlPath}`
+    );
+  });
+};
+
+startServer();
