@@ -1,11 +1,22 @@
+require("dotenv").config();
+
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
+const { Storage } = require("@google-cloud/storage");
+const base64Credentials = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
+console.log("base64Credentials:", base64Credentials);
+const jsonCredentials = Buffer.from(base64Credentials, "base64").toString(
+  "utf-8"
+);
 
 const typeDefs = require("./graphql/schema");
 const resolvers = require("./graphql/resolvers");
 
 // Read in the environment variables
-require("dotenv").config();
+
+const storage = new Storage({
+  credentials: JSON.parse(jsonCredentials),
+});
 
 const startServer = () => {
   // Create the Apollo server
