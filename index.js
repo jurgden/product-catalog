@@ -3,19 +3,18 @@ require("dotenv").config();
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { Storage } = require("@google-cloud/storage");
-const base64Credentials = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
-console.log("base64Credentials:", base64Credentials);
-const jsonCredentials = Buffer.from(base64Credentials, "base64").toString(
-  "utf-8"
-);
+const fs = require("fs");
+const path = require("path");
 
 const typeDefs = require("./graphql/schema");
 const resolvers = require("./graphql/resolvers");
 
-// Read in the environment variables
+// Read in the Google Cloud JSON Credentials
+const credPath = path.join(process.env.HOME, "secrets", "topsecret.json");
+const jCreds = fs.readFileSync(credPath, "utf8");
 
 const storage = new Storage({
-  credentials: JSON.parse(jsonCredentials),
+  credentials: JSON.parse(jCreds),
 });
 
 const startServer = () => {
