@@ -10,6 +10,7 @@ const typeDefs = gql`
     pricePerOz: Float!
     pricePerPlant: Float!
     color: String!
+    imageUrl: String
     # Add more fields as needed
   }
 
