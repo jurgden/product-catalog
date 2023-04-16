@@ -2,11 +2,15 @@ require("dotenv").config();
 
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
+const { connect } = require("./db");
 
 const typeDefs = require("./graphql/schema");
 const resolvers = require("./graphql/resolvers");
 
-const startServer = () => {
+const startServer = async () => {
+  const db = await connect();
+  console.log(" 🦙 Connected to MongoDB Atlas");
+
   // Create the Apollo server
   const server = new ApolloServer({ typeDefs, resolvers });
 
