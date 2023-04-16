@@ -1,5 +1,5 @@
 const { Storage } = require("@google-cloud/storage");
-const { storage } = require("../index");
+const storage = require("../storage");
 
 const bucketName = "san-pedro";
 
