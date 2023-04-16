@@ -1,5 +1,9 @@
 // data/products.js
+const { storage } = require("../index");
 
+const bucketName = "san-pedro";
+
+// From here on, below this line ______ , there is only the products array and the exports below the products
 const products = [
   {
     id: 1,

@@ -10,8 +10,16 @@ const typeDefs = require("./graphql/schema");
 const resolvers = require("./graphql/resolvers");
 
 // Read in the Google Cloud JSON Credentials
-const credPath = path.join(process.env.HOME, "secrets", "topsecret.json");
-const jCreds = fs.readFileSync(credPath, "utf8");
+const filePath = path.join(process.env.HOME, "secrets", "topsecret.json");
+
+let jCreds;
+
+try {
+  jCreds = fs.readFileSync(filePath, "utf8");
+} catch (err) {
+  console.error("Error reading the JSON credentials file:", err);
+  process.exit(1);
+}
 
 const storage = new Storage({
   credentials: JSON.parse(jCreds),
@@ -48,6 +56,10 @@ const startServer = () => {
     .catch((error) => {
       console.error("Error starting the server:", error);
     });
+};
+
+module.exports = {
+  storage,
 };
 
 startServer();
