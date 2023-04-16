@@ -12,6 +12,7 @@ const products = [
     pricePerOz: 5.7,
     pricePerPlant: 50,
     color: "Green",
+
     // Add more fields as needed
   },
   {
